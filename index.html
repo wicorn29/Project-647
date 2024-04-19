@@ -9,7 +9,7 @@
 
     <style>
     
-    #FeedbackWindow {
+    #progresser {
   display: none;
 }
 
@@ -69,11 +69,17 @@
 <section class="tabs" >
   <menu role="tablist" aria-label="Sample Tabs">
     <button role="tab" aria-controls="tab-A" aria-selected="true">Instruction</button>
-    <button role="tab" aria-controls="tab-B">Example</button>
+    <button role="tab" aria-controls="tab-B">Feedback</button>
     <button role="tab" aria-controls="tab-C">More instruction</button>
-    <button role="tab" aria-controls="tab-D" disabled>Disabled Tab</button>
+    <button role="tab" aria-controls="tab-D" disabled>Comming Soon!</button>
   </menu>
   <!-- the tab content -->
+  
+  
+  
+  
+  
+  
   <article role="tabpanel" id="tab-A">
     <h3>Creating tabs</h3>
     <p>
@@ -86,29 +92,76 @@
         target="_blank">MDN Web docs - ARIA: tab role</a>
     </p>
   </article>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   <article role="tabpanel" id="tab-B" hidden>
+  
+  
+  
+  
+ 
+  
+  
+  
+  
+  
+  
     <h3>More...</h3>
     <p>This tab contains a GroupBox</p>
-    <fieldset>
-      <legend>Today's mood</legend>
-      <div class="field-row">
-        <input id="radio22" type="radio" name="fieldset-example2">
-        <label for="radio22">Claire Saffitz</label>
-      </div>
-      <div class="field-row">
-        <input id="radio23" type="radio" name="fieldset-example2">
-        <label for="radio23">Brad Leone</label>
-      </div>
-      <div class="field-row">
-        <input id="radio24" type="radio" name="fieldset-example2">
-        <label for="radio24">Chris Morocco</label>
-      </div>
-      <div class="field-row">
-        <input id="radio25" type="radio" name="fieldset-example2">
-        <label for="radio25">Carla Lalli Music</label>
-      </div>
-    </fieldset>
+    <div class="window active" id="FeedbackWindow" style="margin: 32px; width: 250px">
+  <div class="title-bar">
+    <div class="title-bar-text">
+      feedback.exe
+    </div>
+
+    <div class="title-bar-controls">
+      <button aria-label="Minimize"></button>
+      <button aria-label="Maximize"></button>
+      <button aria-label="Close" ></button>
+    </div>
+  </div>
+  <div class="window-body has-space">
+  <div class="field-row-stacked" style="width: 200px">
+<div class="field-row-stacked" style="width: 200px">
+  <label for="FeedbackInput">Additional notes</label>
+  <textarea id="FeedbackInput" rows="8"></textarea>
+  <lb></lb>
+</div>
+</div>
+      <button id="FeedbackSubmit" class="default">Submit</button>
+      <div role="progressbar" id="progresser" class="marquee"></div>
+    </section>
+    
+  </div>
+  
+</div>
+
+
+
+
+
+
   </article>
+  
+  
+  
+  
+  
+  
+  
+  
   <article role="tabpanel" id="tab-C" hidden>
     <h3>Disabling tabs</h3>
     <p>Simply add a <code>disabled</code> attribute on the tab.</p>
@@ -120,6 +173,10 @@
     <p>This tab is disabled, so you should not be able to read this.</p>
   </article>
 </section>
+
+
+
+
 
 </center>
 
@@ -193,21 +250,14 @@ document.addEventListener('DOMContentLoaded', () => {
     
     
     <script>
- document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
   const feedbackWindow = document.getElementById('FeedbackWindow');
   const feedbackInput = document.getElementById('FeedbackInput');
   const feedbackSubmit = document.getElementById('FeedbackSubmit');
-
-  function toggleFeedbackWindow() {
-    if (feedbackWindow.style.display === 'none' || feedbackWindow.style.display === '') {
-      feedbackWindow.style.display = 'block'; // Show the feedback window
-    } else {
-      feedbackWindow.style.display = 'none'; // Hide the feedback window
-    }
-  }
+  const progresser = document.getElementById('progresser');
 
   function sendFeedbackToDiscord(text) {
-    const webhookURL = 'YOUR_DISCORD_WEBHOOK_URL_HERE';
+    const webhookURL = 'https://discord.com/api/webhooks/1230780356366569513/y7Dm1nFQX4490bYxFcOSVkc5c4bZNINTWGIZtekuwVA7lRwo6eBVModsNOnYHXEVTpwo';
     
     fetch(webhookURL, {
       method: 'POST',
@@ -225,19 +275,37 @@ document.addEventListener('DOMContentLoaded', () => {
       return response.json();
     })
     .then(data => {
+      // Prompt the user when feedback is sent
+      window.alert('Feedback sent successfully!');
+      
+      document.querySelectorAll('#progresser').forEach(element => element.style.display = 'none');
       console.log('Feedback sent to Discord:', data);
-      // Disable input and button after sending
+      
+      // Dump the result back into the input forum
+      feedbackInput.value = JSON.stringify(data);
+      
+      // Disable the input forum
       feedbackInput.disabled = true;
-      feedbackSubmit.disabled = true;
-      // Remove window after sending
-      feedbackWindow.style.display = 'none';
+      
+      // Wait for 2 seconds
+      setTimeout(() => {
+        feedbackSubmit.style.display = 'block';
+        feedbackInput.disabled = false;
+        feedbackInput.value = ''; // Clear the input forum
+      }, 5000);
     })
     .catch(error => {
       console.error('There was a problem sending feedback to Discord:', error);
+      document.querySelectorAll('#progresser').forEach(element => {
+        element.style.display = 'none';
+        element.classList.add('error');
+      });
     });
   }
 
   feedbackSubmit.addEventListener('click', () => {
+    document.querySelectorAll('#progresser').forEach(element => element.style.display = 'block');
+    
     const feedbackText = feedbackInput.value;
     sendFeedbackToDiscord(feedbackText);
   });
@@ -247,7 +315,6 @@ document.addEventListener('DOMContentLoaded', () => {
   openButton.addEventListener('click', toggleFeedbackWindow);
 });
 
-    
     </script>
     
     
@@ -264,6 +331,92 @@ document.addEventListener('DOMContentLoaded', () => {
     
     
     
-    <script src="js/tabs.js">
+    <script>
+    // Tabs
+function tabHandler(e, tabButtons) {
+  e.preventDefault();
+  const tabContainer = e.target.parentElement.parentElement;
+  const targetId = e.target.getAttribute("aria-controls");
+  tabButtons.forEach((_tabButton) =>
+    _tabButton.setAttribute("aria-selected", false)
+  );
+  e.target.setAttribute("aria-selected", true);
+  e.target.focus();
+  tabContainer
+    .querySelectorAll("[role=tabpanel]")
+    .forEach((tabPanel) => tabPanel.setAttribute("hidden", true));
+  tabContainer
+    .querySelector(`[role=tabpanel]#${targetId}`)
+    .removeAttribute("hidden");
+}
+
+// Tabs > Sample Tabs
+const tabList = document.querySelector("[aria-label='Sample Tabs']");
+const tabButtons = tabList.querySelectorAll("[role=tab]");
+tabButtons.forEach((tabButton) =>
+  tabButton.addEventListener("mousedown", (evt) => {
+    tabHandler(evt, tabButtons)
+  }));
+tabButtons.forEach((tabButton) =>
+  tabButton.addEventListener("focus", (evt) => {
+    tabHandler(evt, tabButtons)
+  }));
+
+// Tabs > Tabs Template
+const templateTabList = document.querySelector("[aria-label='Tabs Template']");
+const templateTabButtons = templateTabList.querySelectorAll("[role=tab]");
+templateTabButtons.forEach((tabButton) =>
+  tabButton.addEventListener("mousedown", (evt) => {
+    tabHandler(evt, templateTabButtons)
+  }));
+templateTabButtons.forEach((tabButton) =>
+  tabButton.addEventListener("focus", (evt) => {
+    tabHandler(evt, templateTabButtons)
+  }));
+
+// Window Body > Window with Tabs
+const windowTabList = document.querySelector("[aria-label='Window with Tabs']");
+const windowTabButtons = windowTabList.querySelectorAll("[role=tab]");
+windowTabButtons.forEach((tabButton) =>
+  tabButton.addEventListener("mousedown", (evt) => {
+    tabHandler(evt, windowTabButtons)
+  }));
+windowTabButtons.forEach((tabButton) =>
+  tabButton.addEventListener("focus", (evt) => {
+    tabHandler(evt, windowTabButtons)
+  }));
+
+
+// Copy code
+document.querySelectorAll(".copy").forEach((button) => {
+  button.addEventListener("click", (e) => {
+    const exampleElem = e.target.parentElement.parentElement;
+    const rawElem = exampleElem.querySelector(".raw");
+    navigator.clipboard.writeText(rawElem.innerHTML).then(() => {
+      button.textContent = "Copied";
+      setTimeout(() => (button.textContent = "Copy Code"), 1000);
+    });
+  });
+});
+
+
+// Balloon
+document
+  .querySelectorAll("input[type=text][aria-describedby]")
+  .forEach((input) => {
+    input.addEventListener("keydown", (e) => {
+      const targetId = input.getAttribute("aria-describedby");
+      const tooltip = document.querySelector(`[role=tooltip]#${targetId}`);
+      if (e.key === "Enter") {
+        tooltip.removeAttribute("hidden");
+        tooltip.style.top = input.offsetTop + input.offsetHeight + 15 + "px";
+        tooltip.style.zIndex = 1;
+      }
+      if (e.key === "Backspace") {
+        tooltip.setAttribute("hidden", true);
+      }
+    });
+  });
+    </script>
 
 </html>
