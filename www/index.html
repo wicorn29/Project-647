@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project 647</title>
+    <link rel="stylesheet" href="https://unpkg.com/7.css">
+    
+
+    <style>
+    
+    #FeedbackWindow {
+  display: none;
+}
+
+        /* Basic CSS for the layout */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        nav {
+            background-color: #444;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }
+        main {
+            padding: 20px;
+        }
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="has-scrollbar">
+
+    <!-- Header -->
+<div class="title-bar">
+  <div class="title-bar-text">Project_647.exe</div>
+  <div class="title-bar-controls">
+    <button aria-label="Maximize" id="fullscreentoggle" ></button>
+    <button aria-label="Close" ></button>
+  </div>
+</div>
+
+    <!-- Navigation -->
+
+    <!-- Main Content -->
+
+
+  
+  
+<center>
+
+
+<section class="tabs" >
+  <menu role="tablist" aria-label="Sample Tabs">
+    <button role="tab" aria-controls="tab-A" aria-selected="true">Instruction</button>
+    <button role="tab" aria-controls="tab-B">Example</button>
+    <button role="tab" aria-controls="tab-C">More instruction</button>
+    <button role="tab" aria-controls="tab-D" disabled>Disabled Tab</button>
+  </menu>
+  <!-- the tab content -->
+  <article role="tabpanel" id="tab-A">
+    <h3>Creating tabs</h3>
+    <p>
+      To create a tab, use a <code>menu</code> element with <code>role="tablist"</code>.
+      Then for the tab titles, use a <code>button</code> with <code>role="tab"</code>, and set the <code>aria-controls</code> attribute to
+      the corresponding id of the element with <code>role="tabpanel"</code>.
+    </p>
+    <p>
+      Read more at <a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Tab_Role"
+        target="_blank">MDN Web docs - ARIA: tab role</a>
+    </p>
+  </article>
+  <article role="tabpanel" id="tab-B" hidden>
+    <h3>More...</h3>
+    <p>This tab contains a GroupBox</p>
+    <fieldset>
+      <legend>Today's mood</legend>
+      <div class="field-row">
+        <input id="radio22" type="radio" name="fieldset-example2">
+        <label for="radio22">Claire Saffitz</label>
+      </div>
+      <div class="field-row">
+        <input id="radio23" type="radio" name="fieldset-example2">
+        <label for="radio23">Brad Leone</label>
+      </div>
+      <div class="field-row">
+        <input id="radio24" type="radio" name="fieldset-example2">
+        <label for="radio24">Chris Morocco</label>
+      </div>
+      <div class="field-row">
+        <input id="radio25" type="radio" name="fieldset-example2">
+        <label for="radio25">Carla Lalli Music</label>
+      </div>
+    </fieldset>
+  </article>
+  <article role="tabpanel" id="tab-C" hidden>
+    <h3>Disabling tabs</h3>
+    <p>Simply add a <code>disabled</code> attribute on the tab.</p>
+    <h3>Justified tabs</h3>
+    <p>Add the <code>justified</code> class to the <code>tablist</code> menu to make the tabs, well, justified.</p>
+  </article>
+  <article role="tabpanel" id="tab-D" hidden>
+    <h3>Disabled Tab</h3>
+    <p>This tab is disabled, so you should not be able to read this.</p>
+  </article>
+</section>
+
+</center>
+
+
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Project Name. All rights reserved.</p>
+    </footer>
+
+</body>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const fullscreenButton = document.getElementById('fullscreentoggle');
+	
+    updateButtonLabel();  // Initial label update
+    fullscreenButton.setAttribute('aria-label', 'Maximize');
+
+    fullscreenButton.addEventListener('click', () => {
+        if (document.fullscreenElement) {
+            exitFullscreen();
+        } else {
+            enterFullscreen();
+        }
+        updateButtonLabel();  // Update label after fullscreen toggle
+    });
+
+    function enterFullscreen() {
+        if (document.documentElement.requestFullscreen) {
+            document.documentElement.requestFullscreen();
+        } else if (document.documentElement.mozRequestFullScreen) { /* Firefox */
+            document.documentElement.mozRequestFullScreen();
+        } else if (document.documentElement.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+            document.documentElement.webkitRequestFullscreen();
+        } else if (document.documentElement.msRequestFullscreen) { /* IE/Edge */
+            document.documentElement.msRequestFullscreen();
+        }
+    }
+
+    function exitFullscreen() {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.mozCancelFullScreen) { /* Firefox */
+            document.mozCancelFullScreen();
+        } else if (document.webkitExitFullscreen) { /* Chrome, Safari & Opera */
+            document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) { /* IE/Edge */
+            document.msExitFullscreen();
+        }
+    }
+
+    function updateButtonLabel() {
+        if (document.fullscreenElement) {
+            fullscreenButton.setAttribute('aria-label', 'Maximize');
+        } else {
+            fullscreenButton.setAttribute('aria-label', 'Restore');
+        }
+    }
+});
+
+
+    </script>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <script>
+ document.addEventListener('DOMContentLoaded', () => {
+  const feedbackWindow = document.getElementById('FeedbackWindow');
+  const feedbackInput = document.getElementById('FeedbackInput');
+  const feedbackSubmit = document.getElementById('FeedbackSubmit');
+
+  function toggleFeedbackWindow() {
+    if (feedbackWindow.style.display === 'none' || feedbackWindow.style.display === '') {
+      feedbackWindow.style.display = 'block'; // Show the feedback window
+    } else {
+      feedbackWindow.style.display = 'none'; // Hide the feedback window
+    }
+  }
+
+  function sendFeedbackToDiscord(text) {
+    const webhookURL = 'YOUR_DISCORD_WEBHOOK_URL_HERE';
+    
+    fetch(webhookURL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        content: text,
+      }),
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log('Feedback sent to Discord:', data);
+      // Disable input and button after sending
+      feedbackInput.disabled = true;
+      feedbackSubmit.disabled = true;
+      // Remove window after sending
+      feedbackWindow.style.display = 'none';
+    })
+    .catch(error => {
+      console.error('There was a problem sending feedback to Discord:', error);
+    });
+  }
+
+  feedbackSubmit.addEventListener('click', () => {
+    const feedbackText = feedbackInput.value;
+    sendFeedbackToDiscord(feedbackText);
+  });
+
+  // Assign the toggleFeedbackWindow function to the button's onclick event
+  const openButton = document.querySelector('[aria-label="Open"]');
+  openButton.addEventListener('click', toggleFeedbackWindow);
+});
+
+    
+    </script>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <script src="./js/tabs.js">
+
+</html>
