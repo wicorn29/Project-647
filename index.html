@@ -52,7 +52,7 @@
   <div class="title-bar-text">Project_647.exe</div>
   <div class="title-bar-controls">
     <button aria-label="Maximize" id="fullscreentoggle" ></button>
-    <button aria-label="Close" ></button>
+    <button aria-label="Close" onclick="window.close();" ></button>
   </div>
 </div>
 
@@ -68,9 +68,9 @@
 
 <section class="tabs" >
   <menu role="tablist" aria-label="Sample Tabs">
-    <button role="tab" aria-controls="tab-A" aria-selected="true">Instruction</button>
+    <button role="tab" aria-controls="tab-A" aria-selected="true">Home</button>
     <button role="tab" aria-controls="tab-B">Feedback</button>
-    <button role="tab" aria-controls="tab-C">More instruction</button>
+    <button role="tab" aria-controls="tab-C">Remote-In!</button>
     <button role="tab" aria-controls="tab-D" disabled>Comming Soon!</button>
   </menu>
   <!-- the tab content -->
@@ -81,16 +81,39 @@
   
   
   <article role="tabpanel" id="tab-A">
-    <h3>Creating tabs</h3>
-    <p>
-      To create a tab, use a <code>menu</code> element with <code>role="tablist"</code>.
-      Then for the tab titles, use a <code>button</code> with <code>role="tab"</code>, and set the <code>aria-controls</code> attribute to
-      the corresponding id of the element with <code>role="tabpanel"</code>.
-    </p>
-    <p>
-      Read more at <a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Tab_Role"
-        target="_blank">MDN Web docs - ARIA: tab role</a>
-    </p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Project 647 - The Social Experiment</title>
+</head>
+<body>
+<div>
+    <h1>Welcome to Project 647</h1>
+    <p>Welcome to Project 647, an extraordinary social experiment where participants worldwide can control a single public computer running a 67-bit version of Windows 7. In this unique project, multiple users can take control simultaneously, making it a thrilling and challenging experience as cursor movements can be disrupted by others!</p>
+    
+    <h2>How It Works</h2>
+    <ul>
+        <li>Access the computer through this website.</li>
+        <li>Jump right in and take control, or observe as multiple users interact simultaneously.</li>
+        <li>Experience the thrill and challenge of shared computing as cursor movements can be disrupted by others!</li>
+    </ul>
+    
+    <h2>Rules & Guidelines</h2>
+    <p class="warning">Important: Do not use this computer for illegal or explicit activities. Always refrain from entering personal information as others can view and access data during their sessions.</p>
+    <ul>
+        <li>No uploading or downloading illegal content.</li>
+        <li>Do not engage in any activity that might be harmful to the system or to others.</li>
+        <li>Avoid using the web browser to enter personal accounts or conduct personal business.</li>
+        <li>Chatting through text documents is NOT allowed. You may be banned if I find out...</li>
+    </ul>
+
+    <h2>Join the Experiment</h2>
+    <p>Partake in Project 647 and embrace the unique challenge of shared computing. Can you navigate the complexities of simultaneous control and collaborate effectively with others? Let's find out!</p>
+</div>
+</body>
+</html>
+
   </article>
   
   
@@ -117,9 +140,8 @@
   
   
   
-  
-    <h3>More...</h3>
-    <p>This tab contains a GroupBox</p>
+    <h3>Feedback...</h3>
+    <p>If you don't get an error, your feedback was sent.</p>
     <div class="window active" id="FeedbackWindow" style="margin: 32px; width: 250px">
   <div class="title-bar">
     <div class="title-bar-text">
@@ -136,7 +158,7 @@
   <div class="field-row-stacked" style="width: 200px">
 <div class="field-row-stacked" style="width: 200px">
   <label for="FeedbackInput">Additional notes</label>
-  <textarea id="FeedbackInput" rows="8"></textarea>
+  <textarea id="FeedbackInput" class="has-scrollbar" rows="8"></textarea>
   <lb></lb>
 </div>
 </div>
@@ -158,16 +180,72 @@
   
   
   
+<article role="tabpanel" id="tab-C">
+ <div class="window active" >
+  <div class="title-bar">
+    <div class="title-bar-text">PublicTimer</div>
+    <div class="title-bar-controls">
+      <button aria-label="Minimize"></button>
+      <button aria-label="Maximize"></button>
+      <button aria-label="Close"></button>
+    </div>
+  </div>
+  <div class="window-body has-space">
+    <h3>Publicly avalible in...</h3>
+
+<div id="countdown"></div>
+
+
+
+
+
+
+
+
+
+<script>
+    // Set the date we're counting down to
+    const countDownDate = new Date("May 1, 2024 23:59:59").getTime();
+
+    // Update the countdown every second
+    const x = setInterval(function() {
+
+        // Get the current date and time
+        const now = new Date().getTime();
+
+        // Calculate the time remaining
+        const distance = countDownDate - now;
+
+        // Calculate days, hours, minutes, and seconds
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // Display the countdown
+        document.getElementById("countdown").innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+        // If the countdown is over, display a message
+        if (distance < 0) {
+            clearInterval(x);
+            document.getElementById("countdown").innerHTML = "EXPIRED";
+        }
+    }, 1000);
+</script>
+
+
+
+
+
+
+
+
+  </div>
+</div>
+</article>
   
   
   
-  
-  <article role="tabpanel" id="tab-C" hidden>
-    <h3>Disabling tabs</h3>
-    <p>Simply add a <code>disabled</code> attribute on the tab.</p>
-    <h3>Justified tabs</h3>
-    <p>Add the <code>justified</code> class to the <code>tablist</code> menu to make the tabs, well, justified.</p>
-  </article>
   <article role="tabpanel" id="tab-D" hidden>
     <h3>Disabled Tab</h3>
     <p>This tab is disabled, so you should not be able to read this.</p>
@@ -281,18 +359,12 @@ document.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('#progresser').forEach(element => element.style.display = 'none');
       console.log('Feedback sent to Discord:', data);
       
-      // Dump the result back into the input forum
-      feedbackInput.value = JSON.stringify(data);
-      
-      // Disable the input forum
+      // Clear and disable the input forum
+      feedbackInput.value = 'Feedback sent';
       feedbackInput.disabled = true;
       
-      // Wait for 2 seconds
-      setTimeout(() => {
-        feedbackSubmit.style.display = 'block';
-        feedbackInput.disabled = false;
-        feedbackInput.value = ''; // Clear the input forum
-      }, 5000);
+      // Hide the submit button
+      feedbackSubmit.style.display = 'none';
     })
     .catch(error => {
       console.error('There was a problem sending feedback to Discord:', error);
@@ -314,6 +386,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const openButton = document.querySelector('[aria-label="Open"]');
   openButton.addEventListener('click', toggleFeedbackWindow);
 });
+
 
     </script>
     
